@@ -1,0 +1,27 @@
+<head>
+    <title>Meteor chat example</title>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <ul>
+        {{loginButtons}}
+    </ul>
+</nav>
+<div id="chat">
+    {{> chat }}
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    {{> input }}
+</nav>
+</body>
+
+<template name="chat">
+    {{#each messages}}
+    <strong>{{name}}:</strong> {{message}}<br>
+    {{/each}}
+</template>
+
+<template name="input">
+    <p><input type="text" placeholder="Type your message here" id="message"></p>
+</template>
