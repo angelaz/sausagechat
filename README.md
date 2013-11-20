@@ -5,7 +5,7 @@ Simple Meteor.js chat.
 
 Setup on Runnable.com
 -------------------
-Install Meteor using quickstart
+Create Node.js Runnable and install Meteor using quickstart
 ```
 curl https://gist.github.com/liquidautumn/7398127/raw/runnable-meteor | /bin/sh
 ```
