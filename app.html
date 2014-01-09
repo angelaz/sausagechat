@@ -30,9 +30,11 @@
 
 <template name="message">
     <div>
-        <strong>{{name}}</strong>
-        <span class="timestamp">{{formatTime createdAt}}</span>
-        <span class="message-content">{{{sausagedMessage}}}</span>
+        <div class="message-header">
+            <strong>{{name}}</strong>
+            <span class="timestamp">{{formatTime createdAt}}</span>
+        </div>
+        <div class="message-content">{{{sausagedMessage}}}</div>
     </div>
 </template>
 
