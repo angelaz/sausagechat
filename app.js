@@ -56,6 +56,10 @@ if (Meteor.isClient) {
             "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
     };
 
+    Template.message.formatTime = function (timestamp) {
+        return moment(timestamp).fromNow();
+    };
+
     Template.body.events({
         'click #clear': function () {
             Meteor.call("clearMessages");

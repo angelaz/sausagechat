@@ -29,7 +29,11 @@
 </template>
 
 <template name="message">
-    <strong>{{name}}:</strong> {{{sausagedMessage}}}<br>
+    <div>
+        <strong>{{name}}</strong>
+        <span class="timestamp">{{formatTime createdAt}}</span>
+        <span class="message-content">{{{sausagedMessage}}}</span>
+    </div>
 </template>
 
 <template name="input">
