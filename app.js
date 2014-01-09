@@ -17,7 +17,7 @@ if (Meteor.isClient) {
                 var message = $('#message');
                 if (Meteor.user()) name = Meteor.user().username;
 
-                if (message.val() != '') {
+                if (message.val() !== '') {
                     var messageText = message.val();
 
                     messageText = messageText.replace(":sausage:",
@@ -31,10 +31,13 @@ if (Meteor.isClient) {
 
                     message.val('');
                     message.focus();
-                    Meteor.flush()
+                    Meteor.flush();
                     $("#chat").scrollTop(99999);
                 }
             }
+        },
+        'click #clear': function () {
+            Messages.remove();
         }
     });
 }
