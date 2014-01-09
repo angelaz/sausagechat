@@ -15,7 +15,7 @@ if (Meteor.isClient) {
             if (event.which == 13) {
                 var name = 'Anonymous';
                 var message = $('#message');
-                if (Meteor.user()) name = Meteor.user().emails[0].address;
+                if (Meteor.user()) name = Meteor.user().username;
 
                 if (message.val() != '') {
                     Messages.insert({
