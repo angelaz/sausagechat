@@ -1,6 +1,11 @@
 var Messages = new Meteor.Collection('messages');
 
 if (Meteor.isClient) {
+
+    Accounts.ui.config({
+      passwordSignupFields: 'USERNAME_ONLY'
+    });
+
     Template.chat.messages = function () {
         return Messages.find({}, { sort: { createdAt: 1 }});
     };
