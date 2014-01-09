@@ -20,9 +20,6 @@ if (Meteor.isClient) {
                 if (message.val() !== '') {
                     var messageText = message.val();
 
-                    messageText = messageText.replace(":sausage:",
-                        "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
-
                     Messages.insert({
                         name: name,
                         message: messageText,
@@ -37,6 +34,27 @@ if (Meteor.isClient) {
             }
         }
     });
+
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+
+    function escapeHtml(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+
+    Template.message.sausagedMessage = function () {
+        var escaped = escapeHtml(this.message);
+        return escaped.replace('\\sausage',
+            "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
+    };
 
     Template.body.events({
         'click #clear': function () {

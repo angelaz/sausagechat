@@ -24,8 +24,12 @@
 
 <template name="chat">
     {{#each messages}}
-    <strong>{{name}}:</strong> {{{message}}}<br>
+        {{> message}}
     {{/each}}
+</template>
+
+<template name="message">
+    <strong>{{name}}:</strong> {{{sausagedMessage}}}<br>
 </template>
 
 <template name="input">
