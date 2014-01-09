@@ -35,9 +35,18 @@ if (Meteor.isClient) {
                     $("#chat").scrollTop(99999);
                 }
             }
-        },
+        }
+    });
+
+    Template.body.events({
         'click #clear': function () {
-            Messages.remove();
+            Meteor.call("clearMessages");
+        }
+    });
+} else {
+    Meteor.methods({
+        clearMessages: function () {
+            Messages.remove({});
         }
     });
 }
