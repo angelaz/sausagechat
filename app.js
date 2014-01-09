@@ -17,7 +17,7 @@ if (Meteor.isClient) {
                 var message = $('#message');
                 if (Meteor.user()) name = Meteor.user().emails[0].address;
 
-                if (message.val() != '') {
+                if (message.val() !== '') {
                     Messages.insert({
                         name: name,
                         message: message.val(),
@@ -26,7 +26,7 @@ if (Meteor.isClient) {
 
                     message.val('');
                     message.focus();
-                    Meteor.flush()
+                    Meteor.flush();
                     $("#chat").scrollTop(99999);
                 }
             }
