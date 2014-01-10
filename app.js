@@ -56,6 +56,13 @@ if (Meteor.isClient) {
             "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
     };
 
+
+    Template.message.blobbedMessage = function () {
+        var escaped = escapeHtml(this.message);
+        return escaped.replace('\\blob',
+            "<img src='http://4.bp.blogspot.com/-i8HuUVAX4V0/T06jb7mD2MI/AAAAAAAAAGU/k37huhvENLg/s1600/blob.gif' width=40 height=30 />");
+    };
+
     Template.message.formatTime = function (timestamp) {
         return moment(timestamp).fromNow();
     };
