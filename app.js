@@ -50,18 +50,15 @@ if (Meteor.isClient) {
         });
     }
 
-    Template.message.sausagedMessage = function () {
+    Template.message.sexyMessage = function () {
         var escaped = escapeHtml(this.message);
-        return escaped.replace('\\sausage',
-            "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
-    };
-
-
-    Template.message.blobbedMessage = function () {
-        var escaped = escapeHtml(this.message);
-        return escaped.replace('\\blob',
+        var sexyMsg = escaped.replace('\\blob',
             "<img src='http://4.bp.blogspot.com/-i8HuUVAX4V0/T06jb7mD2MI/AAAAAAAAAGU/k37huhvENLg/s1600/blob.gif' width=40 height=30 />");
+        sexyMsg = sexyMsg.replace('\\sausage',
+            "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
+        return sexyMsg;
     };
+
 
     Template.message.formatTime = function (timestamp) {
         return moment(timestamp).fromNow();
