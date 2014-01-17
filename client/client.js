@@ -2,8 +2,19 @@ Messages = new Meteor.Collection('messages');
 
 Meteor.subscribe("messages");
 
-// do we have permission to show notifications?
-var notificationPermission = window.webkitNotifications.checkPermission();
+// is the notification feature available?
+var notify = !! window.webkitNotifications;
+
+if (notify) {
+    Session.set("notify", true);
+
+    // do we have permission to show notifications?
+    var notificationPermission = window.webkitNotifications.checkPermission();
+
+    if (notificationPermission === 0) {
+        Session.set("notify", false);
+    }
+}
 
 // have all of the existing messages been loaded? (meaning we can use
 // added callback)
@@ -19,6 +30,10 @@ Accounts.ui.config({
 
 Template.chat.messages = function () {
     return Messages.find({}, { sort: { createdAt: 1 }});
+};
+
+Template.body.notify = function () {
+    return Session.get("notify");
 };
 
 Template.input.events({
@@ -91,10 +106,15 @@ Template.message.sexyMessage = function () {
     return sexyMsg;
 };
 
+function formatTimestamps() {
+    $(".timestamp").each(function () {
+        $el = $(this);
+        var timestamp = parseInt($el.attr("data-timestamp"), 10);
+        $el.text(moment(timestamp).fromNow());
+    });
+}
 
-Template.message.formatTime = function (timestamp) {
-    return moment(timestamp).fromNow();
-};
+setInterval(formatTimestamps, 5000);
 
 Template.body.events({
     'click #clear': function () {
@@ -118,18 +138,22 @@ Messages.find().observe({
             }, 100);
         }
 
-        if ((notificationPermission === 0) && ready && Meteor.user().username !== message.name) {
-            var notification = window.webkitNotifications.createNotification(
-                'http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg',
-                "Message from " + message.name,
-                message.message
-            );
+        if (notify) {
+            var notificationPermission = window.webkitNotifications.checkPermission();
+            if ((notificationPermission === 0) &&
+                ready && Meteor.user().username !== message.name) {
+                var notification = window.webkitNotifications.createNotification(
+                    'http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg',
+                    "Message from " + message.name,
+                    message.message
+                );
 
-            notification.show();
+                notification.show();
 
-            setTimeout(function () {
-                notification.cancel();
-            }, 2000);
+                setTimeout(function () {
+                    notification.cancel();
+                }, 2000);
+            }
         }
     }
 });
