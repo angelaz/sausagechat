@@ -9,10 +9,10 @@
 
 <template name="body">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <button id="clear" class="pull-right btn btn-sm btn-default">Clear</button>
+        <button class="clear pull-right btn btn-sm btn-default">Clear</button>
 
         {{#if notify}}
-            <button id="enableNotifications" class="pull-right btn btn-sm btn-default">Notify</button>
+            <button class="enable-notifications pull-right btn btn-sm btn-default">Notify</button>
         {{/if}}
 
         <ul style="width: 200px;">
@@ -20,14 +20,14 @@
         </ul>
     </nav>
     {{#if currentUser}}
-        <div id="chat">
+        <div class="chat">
             {{> chat }}
         </div>
         <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
             {{> input }}
         </nav>
     {{else}}
-        <div id="chat">
+        <div class="chat">
             Please sign in!
         </div>
     {{/if}}
@@ -50,5 +50,5 @@
 </template>
 
 <template name="input">
-    <p><input type="text" placeholder="Type your message here" id="message"></p>
+    <p><input type="text" placeholder="Type your message here" class="message-input"></p>
 </template>

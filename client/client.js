@@ -37,10 +37,10 @@ Template.body.notify = function () {
 };
 
 Template.input.events({
-    'keydown input#message': function (event) {
-        if (event.which == 13) {
+    'keydown .message-input': function (event) {
+        if (event.which === 13) {
             var name = 'Anonymous';
-            var message = $('#message');
+            var message = $('.message-input');
             if (Meteor.user()) {
                 name = Meteor.user().username;
             }
@@ -57,7 +57,7 @@ Template.input.events({
                 message.val('');
                 message.focus();
                 Meteor.flush();
-                $("#chat").scrollTop(99999);
+                $(".chat").scrollTop(99999);
             }
         }
     }
@@ -100,11 +100,13 @@ Template.message.sexyMessage = function () {
     // TODO this allows XSS and stuff
 
     var sexyMsg = this.message;
-    sexyMsg = linkify(sexyMsg);
-    sexyMsg = sexyMsg.replace(/\\blob/g,
-        "<img src='http://4.bp.blogspot.com/-i8HuUVAX4V0/T06jb7mD2MI/AAAAAAAAAGU/k37huhvENLg/s1600/blob.gif' width=40 height=30 />");
-    sexyMsg = sexyMsg.replace(/\\sausage/g,
-        "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
+    if (sexyMsg) {
+        sexyMsg = linkify(sexyMsg);
+        sexyMsg = sexyMsg.replace(/\\blob/g,
+            "<img src='http://4.bp.blogspot.com/-i8HuUVAX4V0/T06jb7mD2MI/AAAAAAAAAGU/k37huhvENLg/s1600/blob.gif' width=40 height=30 />");
+        sexyMsg = sexyMsg.replace(/\\sausage/g,
+            "<img src='http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg' width=40 height=30 />");
+    }
     return sexyMsg;
 };
 
@@ -119,10 +121,10 @@ function formatTimestamps() {
 setInterval(formatTimestamps, 5000);
 
 Template.body.events({
-    'click #clear': function () {
+    'click .clear': function () {
         Meteor.call("clearMessages");
     },
-    'click #enableNotifications': function () {
+    'click .enable-notifications': function () {
         var notificationPermission = window.webkitNotifications.checkPermission();
         if (notificationPermission !== 0) {
             window.webkitNotifications.requestPermission();
@@ -136,7 +138,7 @@ Messages.find().observe({
             // lol wait unti template renders to scroll
             // don't remember how to do this legitimately ATM
             setTimeout(function () {
-                $("#chat").scrollTop(99999);
+                $(".chat").scrollTop(99999);
             }, 100);
         }
 
