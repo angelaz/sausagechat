@@ -1,5 +1,9 @@
 Messages = new Meteor.Collection('messages');
 
+function getUser(_id) {
+	return Meteor.users.findOne(_id);
+}
+
 Meteor.methods({
     clearMessages: function () {
         Messages.remove({});
@@ -7,5 +11,16 @@ Meteor.methods({
 });
 
 Meteor.publish("messages", function () {
-	return Messages.find({});
+	if (this.userId) {
+		var user = getUser(this.userId);
+		if (user) {
+			var name = user.username;
+
+			if (name === "Sausage" || name === "Blob") {
+				return Messages.find({});
+			} else {
+				return [];
+			}
+		}
+	}
 });

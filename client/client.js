@@ -41,7 +41,9 @@ Template.input.events({
         if (event.which == 13) {
             var name = 'Anonymous';
             var message = $('#message');
-            if (Meteor.user()) name = Meteor.user().username;
+            if (Meteor.user()) {
+                name = Meteor.user().username;
+            }
 
             if (message.val() !== '') {
                 var messageText = message.val();
