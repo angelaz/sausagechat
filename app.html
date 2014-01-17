@@ -7,19 +7,26 @@
 </body>
 
 <template name="body">
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <button id="clear" class="pull-right">Clear</button>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <button id="clear" class="pull-right">Clear</button>
+        <button id="enableNotifications" class="pull-right">Notify</button>
 
-    <ul style="width: 200px;">
-        {{loginButtons}}
-    </ul>
-</nav>
-<div id="chat">
-    {{> chat }}
-</div>
-<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-    {{> input }}
-</nav>
+        <ul style="width: 200px;">
+            {{loginButtons}}
+        </ul>
+    </nav>
+    {{#if currentUser}}
+        <div id="chat">
+            {{> chat }}
+        </div>
+        <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            {{> input }}
+        </nav>
+    {{else}}
+        <div id="chat">
+            Please sign in!
+        </div>
+    {{/if}}
 </template>
 
 <template name="chat">
