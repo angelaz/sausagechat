@@ -3,18 +3,7 @@ Messages = new Meteor.Collection('messages');
 Meteor.subscribe("messages");
 
 // is the notification feature available?
-var notify = !! window.webkitNotifications;
-
-if (notify) {
-    Session.set("notify", true);
-
-    // do we have permission to show notifications?
-    var notificationPermission = window.webkitNotifications.checkPermission();
-
-    if (notificationPermission === 0) {
-        Session.set("notify", false);
-    }
-}
+var notificationsAvailable = !! window.webkitNotifications;
 
 // have all of the existing messages been loaded? (meaning we can use
 // added callback)
@@ -32,8 +21,12 @@ Template.chat.messages = function () {
     return Messages.find({}, { sort: { createdAt: 1 }});
 };
 
-Template.body.notify = function () {
-    return Session.get("notify");
+Template.body.showTurnOnNotificationsButton = function () {
+    return (! Session.get("notificationsOn")) && notificationsAvailable;
+};
+
+Template.body.showTurnOffNotificationsButton = function () {
+    return Session.get("notificationsOn");
 };
 
 Template.input.events({
@@ -129,6 +122,11 @@ Template.body.events({
         if (notificationPermission !== 0) {
             window.webkitNotifications.requestPermission();
         }
+
+        Session.set("notificationsOn", true);
+    },
+    'click .disable-notifications': function () {
+        Session.set("notificationsOn", false);
     }
 });
 
@@ -142,9 +140,9 @@ Messages.find().observe({
             }, 100);
         }
 
-        if (notify) {
+        if (notificationsAvailable) {
             var notificationPermission = window.webkitNotifications.checkPermission();
-            if ((notificationPermission === 0) &&
+            if (notificationPermission === 0 && Session.get("notificationsOn") &&
                 ready && Meteor.user().username !== message.name) {
                 var notification = window.webkitNotifications.createNotification(
                     'http://media.morristechnology.com/mediafilesvr/upload/coastalcourier/article/2013/01/16/hotdog_.jpg',

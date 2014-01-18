@@ -11,8 +11,12 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <button class="clear pull-right btn btn-sm btn-default">Clear</button>
 
-        {{#if notify}}
-            <button class="enable-notifications pull-right btn btn-sm btn-default">Notify</button>
+        {{#if showTurnOnNotificationsButton}}
+            <button class="enable-notifications pull-right btn btn-sm btn-default">Enable Not</button>
+        {{/if}}
+
+        {{#if showTurnOffNotificationsButton}}
+            <button class="disable-notifications pull-right btn btn-sm btn-default">Disable Not</button>
         {{/if}}
 
         <div class="pull-right" style="padding-right: 10px;">
