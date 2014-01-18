@@ -11,17 +11,19 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <button class="clear pull-right btn btn-sm btn-default">Clear</button>
 
-        {{#if showTurnOnNotificationsButton}}
-            <button class="enable-notifications pull-right btn btn-sm btn-default">
-                Enable Notify
-            </button>
-        {{/if}}
+        {{#isolate}}
+            {{#if showTurnOnNotificationsButton}}
+                <button class="enable-notifications pull-right btn btn-sm btn-default">
+                    Enable Notify
+                </button>
+            {{/if}}
 
-        {{#if showTurnOffNotificationsButton}}
-            <button class="disable-notifications pull-right btn btn-sm btn-default">
-                Disable Notify
-            </button>
-        {{/if}}
+            {{#if showTurnOffNotificationsButton}}
+                <button class="disable-notifications pull-right btn btn-sm btn-default">
+                    Disable Notify
+                </button>
+            {{/if}}
+        {{/isolate}}
 
         <div class="pull-right" style="padding-right: 10px;">
             SausageChat 2.0
